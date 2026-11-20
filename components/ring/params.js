@@ -103,6 +103,19 @@ export function defaultParams() {
     snapFrom: 1, // rad/s under which the ring commits to a slot
     pickTime: 0.55, // click-to-centre: seconds for one slot, root-scaled
     pickEase: "power3.inOut",
+    beadPillH: 19, // px, half the glass capsule's height
+    beadPillPad: 18,
+    beadResponse: 0.22,
+    beadRefraction: 7, // px of lens displacement near the rim
+    beadTint: 0.22,
+    beadRim: 1.4, // px of bevel
+    beadHighlight: 0.55,
+    tagText: "View",
+    wordSize: 13, // px
+
+    lightboxTime: 0.55,
+    lightboxFill: 0.92, // fraction of the viewport available to the large card
+    lightboxEase: "power3.inOut",
 
     // -- the intro heading, in the scene ---------------------------------
     text: "Works '26",
@@ -169,7 +182,7 @@ export function defaultParams() {
     pull: 26, // px a plane leans toward the cursor
     grab: 0.14, // how fast a plane takes up a lean, per 60fps frame
     release: 0.06, // and how slowly it lets go — asymmetric on purpose
-    web: 0.2, // hovered thread width, as a fraction of the facing edge
+    web: 0, // hovered thread width, as a fraction of the facing edge
     webReach: 1.15,
     wave: 4, // px of capillary wake at full pointer speed
     waveFreq: 0.05,
@@ -181,21 +194,6 @@ export function defaultParams() {
     sidePush: 17, // px
     sideDim: 0.15,
     sideReach: 2.4, // in plane long edges, measured from the hovered card
-
-    // -- the cursor tag, drawn in the same shader pass --------------------
-    tagFrom: 1024, // viewport width it needs; below that there is no cursor
-    tagText: "View",
-    tagSize: 14,
-    tagWeight: 500,
-    tagArrow: 14, // px, the svg in /public
-    tagGap: 6,
-    // Offset off the cursor deliberately: sitting under it, the tag covers
-    // the thing being pointed at. World px, so +y is up like posY.
-    tagX: 64,
-    tagY: -38,
-    tagFrost: 0.16,
-    tagRim: 0.02,
-    tagRefract: 39.5,
 
     // -- honey between neighbouring planes --------------------------------
     thread: 1.0,

@@ -12,8 +12,7 @@ import { TAU } from "./utils";
  * `replay` for anything baked into the entry timeline when it is built.
  */
 export function mountGui(GUI, { params, state, info, actions }) {
-  const { replay, refit, styleMeta, setThreshold, rebuildText, rebuildTag } =
-    actions;
+  const { replay, refit, styleMeta, setThreshold, rebuildText } = actions;
 
   const gui = new GUI({ title: "ring" });
 
@@ -120,6 +119,25 @@ export function mountGui(GUI, { params, state, info, actions }) {
   onStage("moveDelay", 0, 15, 0.05, "moveDelay");
   stage.add(params, "moveEase", EASES).onChange(replay);
 
+  const bead = gui.addFolder("glass cursor");
+  bead.add(params, "beadPillH", 12, 30, 1);
+  bead.add(params, "beadPillPad", 8, 30, 1);
+  bead.add(params, "beadResponse", 0.05, 1, 0.01);
+  bead.add(params, "beadRefraction", 0, 16, 0.5);
+  bead.add(params, "beadTint", 0, 0.6, 0.01);
+  bead.add(params, "beadRim", 0.5, 3, 0.1);
+  bead.add(params, "beadHighlight", 0, 1, 0.01);
+  bead.add(params, "tagText");
+  bead.add(params, "wordSize", 9, 20, 1);
+
+  // -- lightbox ------------------------------------------------------------
+  const lightbox = gui.addFolder("lightbox");
+  lightbox.add(params, "lightboxTime", 0.05, 3, 0.05).name("time (s)");
+  lightbox.add(params, "lightboxFill", 0.5, 1, 0.01).name("viewport fill");
+  lightbox
+    .add(params, "lightboxEase", ["power2.inOut", "power3.inOut"])
+    .name("ease");
+
   // -- the intro heading ----------------------------------------------------
   const text = gui.addFolder("text");
   text.add(params, "text").onFinishChange(rebuildText);
@@ -220,18 +238,6 @@ export function mountGui(GUI, { params, state, info, actions }) {
   sides.add(params, "sidePush", 0, 240, 1).name("push away");
   sides.add(params, "sideDim", 0, 1, 0.01).name("dim");
   sides.add(params, "sideReach", 0.2, 12, 0.05).name("reach (how many)");
-
-  const tag = gui.addFolder("tag");
-  tag.add(params, "tagFrom", 0, 2000, 10).name("hide at or below (px)");
-  tag.add(params, "tagText").name("label").onFinishChange(rebuildTag);
-  tag.add(params, "tagSize", 6, 40, 1).name("size").onChange(rebuildTag);
-  tag.add(params, "tagArrow", 0, 40, 1).name("arrow").onChange(rebuildTag);
-  tag.add(params, "tagGap", 0, 30, 1).name("gap").onChange(rebuildTag);
-  tag.add(params, "tagX", -400, 400, 1).name("offset x");
-  tag.add(params, "tagY", -400, 400, 1).name("offset y (+up)");
-  tag.add(params, "tagFrost", 0, 1, 0.01).name("frost");
-  tag.add(params, "tagRim", 0, 1, 0.01).name("rim");
-  tag.add(params, "tagRefract", 0, 60, 0.5).name("refract");
 
   // -- material ------------------------------------------------------------
   const honey = gui.addFolder("honey");
